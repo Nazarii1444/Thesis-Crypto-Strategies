@@ -1,0 +1,41 @@
+import pandas as pd
+
+from loader import load_csv
+
+
+def resample_to_15m(filepath, other_filepath):
+    data = pd.read_csv(filepath, parse_dates=True, index_col='Datetime')
+
+    # Групуєвання даних за 15-хвилинними інтервалами
+    resampled_data = data.resample('15T').agg({
+        'Open': 'first',  # Перша ціна за 15 хвилин - ціна відкриття
+        'High': 'max',  # Найвища ціна за 15 хвилин
+        'Low': 'min',  # Найнижча ціна за 15 хвилин
+        'Close': 'last',  # Остання ціна за 15 хвилин - ціна закриття
+        'Volume': 'sum'  # Сумарний об'єм торгів за 15 хвилин
+    })
+
+    resampled_data.to_csv(other_filepath)
+
+
+def dataframe_cutter(filepath, new_filename, start_date, end_date):
+    data = pd.read_csv(filepath)
+    data['Datetime'] = pd.to_datetime(data['Datetime'])
+    data.set_index('Datetime', inplace=True)
+
+    start_date = pd.to_datetime(start_date)
+    end_date = pd.to_datetime(end_date)
+
+    filtered_data = data[(data.index >= start_date) & (data.index <= end_date)]
+    filtered_data.to_csv(new_filename)
+
+
+def trim_data_to_one_day(filepath):
+    data = load_csv(filepath)
+
+    trimmed_data = data.loc['2024-09-12']
+    return trimmed_data.to_csv(filepath)
+
+
+if __name__ == '__main__':
+    dataframe_cutter("../test_data/custom_csvs/AAVE_USDT_1m.csv", "AAVE_USD_FOR_BAR_CHART.csv", '2023-10-29 12:00', '2023-10-30 13:00')
