@@ -1,0 +1,25 @@
+import mplfinance as mpf
+
+from utils.loader import load_csv
+
+
+class PointAndFigureChart:
+    def __init__(self, df):
+        self.df = self.prepare_data(df)
+
+    @staticmethod
+    def prepare_data(df):
+        df = df.copy()
+        df = df[['Open', 'High', 'Low', 'Close']]
+        return df
+
+    def plot_pnf_chart(self):
+        """Plot Point & Figure chart using mplfinance."""
+        mpf.plot(self.df, type='pnf', style='charles', title='Point & Figure Chart', ylabel='Price', figsize=(12, 7),
+                 tight_layout=True)
+
+
+if __name__ == "__main__":
+    sample_data = load_csv("AAVE_USD_FOR_POINT_AND_FIGURE_CHART.csv")
+    pnf_chart = PointAndFigureChart(sample_data)
+    pnf_chart.plot_pnf_chart()
