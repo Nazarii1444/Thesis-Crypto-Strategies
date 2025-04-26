@@ -7,7 +7,7 @@ def add_rsi(df, period=14):
     gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
     rs = gain / loss
-    df['RSI'] = 100 - (100 / (1 + rs))
+    df[f'RSI_{period}'] = 100 - (100 / (1 + rs))
     return df
 
 
@@ -34,7 +34,7 @@ def add_atr(df, period=14):
     high_close = np.abs(df['High'] - df['Close'].shift())
     low_close = np.abs(df['Low'] - df['Close'].shift())
     tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
-    df['ATR'] = tr.rolling(window=period).mean()
+    df[f'ATR_{period}'] = tr.rolling(window=period).mean()
     return df
 
 
