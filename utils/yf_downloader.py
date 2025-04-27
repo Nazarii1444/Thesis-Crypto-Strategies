@@ -246,7 +246,7 @@ class YFDataGenerator:
 
     @staticmethod
     def generate_data(interval_name: str, downloader_method: str):
-        folder_path = f'../csvs/{interval_name}'
+        folder_path = f'../{interval_name}'
         os.makedirs(folder_path, exist_ok=True)
 
         for ticker in TICKERS:
