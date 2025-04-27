@@ -21,12 +21,14 @@ def load_csv(filepath):
         first_line = file.readline()
         columns = first_line.strip().split(',')
 
-    if 'Datetime' in columns:
-        index_col = 'Datetime'
-    elif 'Date' in columns:
-        index_col = 'Date'
-    else:
-        raise ValueError("CSV файл не містить стовпців 'Datetime' або 'Date'")
+    allowed_columns = ['Datetime', 'Date']
+    index_col = None
+    for col in allowed_columns:
+        if col in columns:
+            index_col = col
+
+    if index_col is None:
+        raise ValueError("CSV does not have 'Datetime' or 'Date'")
 
     data = pd.read_csv(filepath, index_col=index_col, parse_dates=True)
     return data[data["Volume"] != 0]
@@ -35,8 +37,7 @@ def load_csv(filepath):
 def resample_to_15m(filepath, other_filepath):
     data = pd.read_csv(filepath, parse_dates=True, index_col='Datetime')
 
-    # Групуєвання даних за 15-хвилинними інтервалами
-    resampled_data = data.resample('15T').agg({
+    resampled_data = data.resample('15T').agg({  # Групування даних за 15-хвилинними інтервалами
         'Open': 'first',  # Перша ціна за 15 хвилин - ціна відкриття
         'High': 'max',  # Найвища ціна за 15 хвилин
         'Low': 'min',  # Найнижча ціна за 15 хвилин
