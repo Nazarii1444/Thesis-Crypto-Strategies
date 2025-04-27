@@ -1,6 +1,35 @@
+import time
+from functools import wraps
+
 import pandas as pd
 
-from loader import load_csv
+
+def time_it(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        print(f'Time taken by {func.__name__}: {end_time - start_time:.2f} seconds')
+        return result
+
+    return wrapper
+
+
+def load_csv(filepath):
+    with open(filepath, 'r') as file:
+        first_line = file.readline()
+        columns = first_line.strip().split(',')
+
+    if 'Datetime' in columns:
+        index_col = 'Datetime'
+    elif 'Date' in columns:
+        index_col = 'Date'
+    else:
+        raise ValueError("CSV файл не містить стовпців 'Datetime' або 'Date'")
+
+    data = pd.read_csv(filepath, index_col=index_col, parse_dates=True)
+    return data[data["Volume"] != 0]
 
 
 def resample_to_15m(filepath, other_filepath):
@@ -38,4 +67,5 @@ def trim_data_to_one_day(filepath):
 
 
 if __name__ == '__main__':
-    dataframe_cutter("../test_data/custom_csvs/AAVE_USDT_1m.csv", "AAVE_USD_FOR_BAR_CHART.csv", '2023-10-29 12:00', '2023-10-30 13:00')
+    dataframe_cutter("../test_data/custom_csvs/AAVE_USDT_1m.csv", "AAVE_USD_FOR_BAR_CHART.csv", '2023-10-29 12:00',
+                     '2023-10-30 13:00')
