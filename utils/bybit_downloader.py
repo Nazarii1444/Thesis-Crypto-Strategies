@@ -5,7 +5,7 @@ from datetime import datetime
 import pandas as pd
 import requests
 
-from time_it import time_it
+from utils import time_it
 
 INTERVAL_MAP = {
     "1m": "one_m",
