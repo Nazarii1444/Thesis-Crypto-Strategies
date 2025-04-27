@@ -6,7 +6,7 @@ from plotly.subplots import make_subplots
 from indicators import add_bollinger_bands
 from utils.add_trades_marks import add_trades_marks_
 from utils.config import LONG, SHORT
-from utils.loader import load_csv
+from utils.utils import load_csv
 from utils.stats import Stats
 from utils.trade import Trade
 

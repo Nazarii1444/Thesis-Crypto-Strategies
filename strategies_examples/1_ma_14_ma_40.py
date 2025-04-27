@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 from indicators import add_ma
 from utils.add_trades_marks import add_trades_marks
 from utils.config import LONG, SHORT
-from utils.loader import load_csv
+from utils.utils import load_csv
 from utils.stats import Stats
 from utils.trade import Trade
 
