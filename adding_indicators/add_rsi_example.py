@@ -1,5 +1,5 @@
-from indicators import add_rsi
-from utils.loader import load_csv
+from utils.indicators import add_rsi
+from utils.utils import load_csv
 
 if __name__ == '__main__':
     filepath = "./test_data/csvs/fifteen_m/AAVE_USD.csv"
