@@ -31,6 +31,7 @@ class Stats:
         self.net_return = None
         self.total_trades = 0
 
+        self.ex = None
         self.process_trades(trades)
         self.calculate_statistics()
 
@@ -134,6 +135,8 @@ class Stats:
         self.successful_trades = self.successful_short_trades + self.successful_long_trades
         self.unsuccessful_trades = self.unsuccessful_short_trades + self.unsuccessful_long_trades
 
+        self.ex = round((percentage_profitable / 100 * (self.profitable_return / self.successful_trades) + ((self.profitable_return / self.unsuccessful_trades) if self.unsuccessful_trades > 0 else 0) * (100 - percentage_profitable) / 100), 3)
+
         print(f"""Initial cash: {self.initial_cash}
 Lot %: {self.lot_percentage * 100}% or {initial_amount_in_dollars * 100}$ from {self.initial_cash}$
 Total trades: {self.total_trades}
@@ -158,7 +161,7 @@ Unsuccessful SHORT trades: {self.unsuccessful_short_trades}
 Total profit from profitable trades: {self.profitable_return:.2f}$
 Total loss from unprofitable trades: {self.loss_return:.2f}$
 Net return: {self.net_return:.2f}$
-Ex: {round((percentage_profitable / 100 * (self.profitable_return / self.successful_trades) + (self.profitable_return / self.unsuccessful_trades) * (100 - percentage_profitable) / 100), 3)}
+Ex: {self.ex}
 """)
 
     def export_trades(self, trades_file_path: str, stats_file_path: str):
