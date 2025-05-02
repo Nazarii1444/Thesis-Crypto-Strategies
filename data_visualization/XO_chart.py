@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from utils.loader import load_csv
+
+from utils.utils import load_csv
 
 
 def point_and_figure(
