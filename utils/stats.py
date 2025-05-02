@@ -217,26 +217,26 @@ Ex: {self.ex}
 
         formatted_stats = {
             "Початковий капітал": to_comma(self.initial_cash),
-            "Відсоток капіталу вкладений в трейд": to_comma(f"{self.lot_percentage * 100:.2f}"),
+            "Відсоток від капіталу, що інвестуємо": to_comma(f"{self.lot_percentage * 100:.2f}"),
             "Кінцевий капітал": to_comma(f"{self.cash:.2f}"),
-            "Кількість трейдів": len(self.trades),
-            "Кількість прибуткових трейдів": self.profitable_trades_count,
-            "Середній заробіток трейда ($)": to_comma(
+            "Кількість завершених позицій": len(self.trades),
+            "Кількість прибуткових позицій": self.profitable_trades_count,
+            "Середній прибуток (збиток) позиції ($)": to_comma(
                 f"{self.average_trade_return:.2f}") if self.average_trade_return else "N/A",
-            "Середня тривалість трейда": format_duration(self.average_trade_duration),
-            "Найдовша тривалість трейда": format_duration(self.longest_trade_duration),
-            "Найкоротша тривалість трейда": format_duration(self.shortest_trade_duration),
-            "Кількість довгих трейдів": self.long_trades,
-            "Кількість прибуткових довгих трейдів": self.successful_long_trades,
-            "Кількість збиткових довгих трейдів": self.unsuccessful_long_trades,
-            "Кількість коротких трейдів": self.short_trades,
-            "Кількість прибуткових коротких трейдів": self.successful_short_trades,
-            "Кількість збиткових коротких трейдів": self.unsuccessful_short_trades,
-            "Прибуток від прибуткових трейдів ($)": to_comma(f"{self.profitable_return:.2f}"),
-            "Збиток від збиткових трейдів ($)": to_comma(f"{self.loss_return:.2f}"),
+            "Середня тривалість позиції": format_duration(self.average_trade_duration),
+            "Найдовша тривалість позиції": format_duration(self.longest_trade_duration),
+            "Найкоротша тривалість позиції": format_duration(self.shortest_trade_duration),
+            "Кількість довгих позицій": self.long_trades,
+            "Кількість прибуткових довгих позицій": self.successful_long_trades,
+            "Кількість збиткових довгих позицій": self.unsuccessful_long_trades,
+            "Кількість коротких позицій": self.short_trades,
+            "Кількість прибуткових коротких позицій": self.successful_short_trades,
+            "Кількість збиткових коротких позицій": self.unsuccessful_short_trades,
+            "Прибуток від прибуткових позицій ($)": to_comma(f"{self.profitable_return:.2f}"),
+            "Збиток від збиткових позицій ($)": to_comma(f"{self.loss_return:.2f}"),
             "Загальний прибуток ($)": to_comma(f"{self.profit:.2f}"),
-            "Прибуток ($)": to_comma(f"{self.net_return:.2f}"),
-            "Прибуток (%)": to_comma(f"{self.return_:.2f}")
+            "Прибуток (%)": to_comma(f"{self.return_:.2f}"),
+            "Математичне сподівання (Ex)": {self.ex}
         }
 
         df_stats = pd.DataFrame.from_dict(formatted_stats, orient='index', columns=["Значення"])
