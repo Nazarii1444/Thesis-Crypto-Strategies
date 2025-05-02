@@ -109,5 +109,5 @@ def plot_trades(data, trades):
 
 
 if __name__ == '__main__':
-    df = load_csv("../test_data/custom_csvs/AAVE_USDT_RECENT.csv")
+    df = load_csv("../custom_test_data/custom_csvs/AAVE_USDT_RECENT.csv")
     simulate_ma_14_ma_40_strategy(df)
