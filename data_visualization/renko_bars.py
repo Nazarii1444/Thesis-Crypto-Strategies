@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from utils.loader import load_csv
+from utils.utils import load_csv
 
 
 class Renko:

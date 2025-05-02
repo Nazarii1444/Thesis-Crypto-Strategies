@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from utils.loader import load_csv
+from utils.utils import load_csv
 
 
 class LineChart:

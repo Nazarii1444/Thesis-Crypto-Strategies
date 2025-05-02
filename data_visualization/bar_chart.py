@@ -1,9 +1,6 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 import mplfinance as mpf
 
-from utils.loader import load_csv
+from utils.utils import load_csv
 
 
 class OHLCBarChart:
@@ -18,7 +15,8 @@ class OHLCBarChart:
 
     def plot_ohlc_chart(self):
         """Plot OHLC bar chart using mplfinance."""
-        mpf.plot(self.df, type='ohlc', style='charles', title='OHLC Bar Chart', ylabel='Price', figsize=(12, 7), tight_layout=True)
+        mpf.plot(self.df, type='ohlc', style='charles', title='OHLC Bar Chart', ylabel='Price', figsize=(12, 7),
+                 tight_layout=True)
 
 
 if __name__ == "__main__":

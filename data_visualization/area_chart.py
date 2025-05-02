@@ -1,6 +1,6 @@
 import plotly.express as px
 
-from utils.loader import load_csv
+from utils.utils import load_csv
 
 
 class AreaChart:

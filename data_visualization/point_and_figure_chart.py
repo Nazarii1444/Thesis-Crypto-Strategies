@@ -1,6 +1,6 @@
 import mplfinance as mpf
 
-from utils.loader import load_csv
+from utils.utils import load_csv
 
 
 class PointAndFigureChart:
