@@ -3,7 +3,7 @@ from typing import List
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-from indicators import add_macd, add_atr
+from utils.indicators import add_macd, add_atr
 from utils.add_trades_marks import add_trades_marks_
 from utils.config import LONG, SHORT
 from utils.utils import load_csv
@@ -138,5 +138,5 @@ def plot_trades(data, trades):
 
 
 if __name__ == '__main__':
-    df = load_csv("../test_data/custom_csvs/AAVE_USDT_RECENT.csv")
+    df = load_csv("../custom_test_data/custom_csvs/AAVE_USDT_RECENT.csv")
     simulate_macd_atr_strategy(df)
