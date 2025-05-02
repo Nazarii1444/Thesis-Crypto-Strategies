@@ -2,7 +2,7 @@ from typing import List
 
 import plotly.graph_objects as go
 
-from indicators import add_ma
+from utils.indicators import add_ma
 from utils.add_trades_marks import add_trades_marks
 from utils.config import LONG, SHORT
 from utils.utils import load_csv
