@@ -3,13 +3,14 @@ from typing import List
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-from indicators import add_rsi
+from utils.indicators import add_rsi
 from utils.add_trades_marks import add_trades_marks_
 from utils.config import LONG, SHORT
 from utils.utils import load_csv
 from utils.stats import Stats
 from utils.trade import Trade
 
+RSI_PERIOD = 14
 
 def simulate_rsi_strategy(data):
     trades: List[Trade] = []
@@ -17,16 +18,15 @@ def simulate_rsi_strategy(data):
     trade_id = 1
     cash, initial_cash = 1000, 1000
     lot_percentage = 0.12
-    period = 14
 
     lower_bound = 30
     upper_bound = 70
-    data = add_rsi(data, period=period)
+    data = add_rsi(data, period=RSI_PERIOD)
 
-    for i in range(period, len(data)):
+    for i in range(RSI_PERIOD, len(data)):
         date = data.index[i]
         current_close = data['Close'].iloc[i]
-        current_rsi = data['RSI'].iloc[i]
+        current_rsi = data[f'RSI_{RSI_PERIOD}'].iloc[i]
 
         if position is None:
             if current_rsi < lower_bound:
@@ -98,7 +98,7 @@ def plot_trades(data, trades):
     fig.add_trace(
         go.Scatter(
             x=data.index,
-            y=data['RSI'],
+            y=data[f'RSI_{RSI_PERIOD}'],
             mode='lines',
             name='RSI',
             line=dict(color='purple')
@@ -133,5 +133,5 @@ def plot_trades(data, trades):
 
 
 if __name__ == '__main__':
-    df = load_csv("../test_data/custom_csvs/AAVE_USDT_RECENT.csv")
+    df = load_csv("../custom_test_data/custom_csvs/AAVE_USDT_RECENT.csv")
     simulate_rsi_strategy(df)
