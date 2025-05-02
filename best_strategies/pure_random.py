@@ -61,7 +61,7 @@ def test_strategy(filepath):
                     trade.create_additional_purchase(current_close, to_add, date)
                     cash -= to_add
 
-    Stats(initial_cash, lot_percentage, trades)
+    Stats(initial_cash, lot_percentage, trades).export_stats_to_excel()
     plot_trades(data, trades)
 
 
